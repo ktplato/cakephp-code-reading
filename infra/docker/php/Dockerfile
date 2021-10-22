@@ -30,10 +30,13 @@ RUN apt-get update && \
   localedef -f UTF-8 -i en_US en_US.UTF-8 && \
   a2enmod rewrite && \
   docker-php-ext-install intl pdo_mysql zip bcmath && \
+  pecl install xdebug && \
+  docker-php-ext-enable xdebug && \ 
   composer config -g process-timeout 3600 && \
   composer config -g repos.packagist composer https://packagist.org
 
 COPY ./infra/docker/php/php.ini /usr/local/etc/php/php.ini
+COPY ./infra/docker/php/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 COPY ./infra/docker/apache/httpd.conf /etc/apache2/sites-available/000-default.conf
 
 WORKDIR /work/backend
