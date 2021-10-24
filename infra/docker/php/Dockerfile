@@ -14,7 +14,7 @@ ENV TZ=UTC \
   COMPOSER_HOME=/composer
 
 # composer command
-COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
 # node command
 COPY --from=node /usr/local/bin /usr/local/bin
 # npm command

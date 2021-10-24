@@ -1,6 +1,9 @@
 FROM mysql:8.0
-LABEL maintainer="ucan-lab <yes@u-can.pro>"
 
-ENV TZ=UTC
+ENV TZ=UTC \
+  MYSQL_DATABASE=my_app \
+  MYSQL_USER=my_app \
+  MYSQL_PASSWORD=secret \
+  MYSQL_ROOT_PASSWORD=secret
 
 COPY ./infra/docker/mysql/my.cnf /etc/my.cnf
