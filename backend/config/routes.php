@@ -80,7 +80,7 @@ return static function (RouteBuilder $routes) {
 
         $builder->setExtensions(['json']);
 
-        $builder->connect('/task/search', ['controller' => 'Tasks', 'action' => 'search'])->setMethods(['GET']);
+        $builder->connect('/task', ['controller' => 'Tasks', 'action' => 'search'])->setMethods(['GET']);
         $builder->connect('/task/:id', ['controller' => 'Tasks', 'action' => 'view'])->setPass(['id'])->setMethods(['GET']);
         $builder->connect('/task', ['controller' => 'Tasks', 'action' => 'create'])->setMethods(['POST']);
         $builder->connect('/task/:id', ['controller' => 'Tasks', 'action' => 'update'])->setPass(['id'])->setMethods(['PUT']);
