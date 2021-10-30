@@ -21,6 +21,7 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
+use Cake\Http\Middleware\BodyParserMiddleware;
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
 
@@ -71,6 +72,19 @@ return static function (RouteBuilder $routes) {
          * routes you want in your application.
          */
         $builder->fallbacks();
+    });
+
+    $routes->scope('/api', ['prefix' => 'Api'], function (RouteBuilder $builder) {
+        $builder->registerMiddleware('bodies', new BodyParserMiddleware());
+        $builder->applyMiddleware('bodies');
+
+        $builder->setExtensions(['json']);
+
+        $builder->connect('/task/search', ['controller' => 'Tasks', 'action' => 'search'])->setMethods(['GET']);
+        $builder->connect('/task/:id', ['controller' => 'Tasks', 'action' => 'view'])->setPass(['id'])->setMethods(['GET']);
+        $builder->connect('/task', ['controller' => 'Tasks', 'action' => 'create'])->setMethods(['POST']);
+        $builder->connect('/task/:id', ['controller' => 'Tasks', 'action' => 'update'])->setPass(['id'])->setMethods(['PUT']);
+        $builder->connect('/task/:id', ['controller' => 'Tasks', 'action' => 'delete'])->setPass(['id'])->setMethods(['DELETE']);
     });
 
     /*
